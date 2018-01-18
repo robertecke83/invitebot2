@@ -7,7 +7,7 @@ import csv
 app = Flask(__name__)
 
 
-BOT_TOKEN = 'OTc5OGY3YjEtM2I4OC00ZjhiLTg5YjMtYzU1NTdkOGM4NTViMTg0ZDYxYzMtOTRm'
+BOT_TOKEN = 'OWJiYzUxYWYtOTE1YS00ZjI4LWI2YWEtZjZhY2MzYmRmNjE5NTE5ZGQ4NzAtYmMw'
 SPACE_ID = 'Y2lzY29zcGFyazovL3VzL1JPT00vZjUwNjZjZTAtZjYxMy0xMWU3LTkyYTgtYjNiNGFhZDUxNzIy'
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
@@ -15,7 +15,7 @@ api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
 @app.route('/')
 def hello():
-    return 'Hello World!'
+    return 'Hello Gerreint'
 
 # Receive POST from Spark Space
 @app.route('/sparkhook', methods=['POST'])
