@@ -6,16 +6,14 @@ import csv
 
 app = Flask(__name__)
 
-
 BOT_TOKEN = 'YzkxNThlN2ItZDhiYi00N2UwLWJmNTYtMTExN2I3NDhhZmMxOWQ5MzM4YjUtNzM0'
 SPACE_ID = 'Y2lzY29zcGFyazovL3VzL1JPT00vZTJhN2I2ZTAtZmM0My0xMWU3LTljNTEtMjU2ODE2NDAzYzUz'
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
-
 @app.route('/')
 def hello():
-    return 'Hello Gerreint111'
+    return 'Hello World!'
 
 # Receive POST from Spark Space
 @app.route('/sparkhook', methods=['POST'])
@@ -56,10 +54,12 @@ def sparkhook():
                         decodedContent = getResponse.content.decode('utf-8')
                         csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
                         listEmails = list(csvFile)
-                        for row in listEmails:
-                              if i != 0:
- -                                participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False)
-                              i += 1
+                        for row in listEmails: # Creating one list for each line in the file
+                            if i != 0:
+                                participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                botAnswered = api.messages.create(roomId=SPACE_ID, text=str(api.exceptions.SparkApiError))
+                            i += 1
+
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
