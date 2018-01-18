@@ -58,8 +58,7 @@ def sparkhook():
                         listEmails = list(csvFile)
                         for row in listEmails:
                               if i != 0:
- -                                botAnswered = api.messages.create(roomId=SPACE_ID, text=str(row[2]))
-                                  participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False)
+ -                                participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False)
                               i += 1
                     # If the attached file is not a CSV
                     else:
