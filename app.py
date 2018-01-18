@@ -7,7 +7,6 @@ import csv
 app = Flask(__name__)
 
 BOT_TOKEN = 'YzkxNThlN2ItZDhiYi00N2UwLWJmNTYtMTExN2I3NDhhZmMxOWQ5MzM4YjUtNzM0'
-SPACE_ID = api.messages.get(jsonAnswer['data']['roomId'])
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
@@ -37,7 +36,7 @@ def sparkhook():
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
+                botAnswered = api.messages.create(roomId=str(sparkMessage.roomId), markdown=textAnswer)
 
             # If the message comes with a file
             else:
@@ -56,14 +55,14 @@ def sparkhook():
                         listEmails = list(csvFile)
                         for row in listEmails: # Creating one list for each line in the file
                             if i != 0:
-                                participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                participantAdded = api.memberships.create(roomIdstr(sparkMessage.roomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
                                 #botAnswered = api.messages.create(roomId=SPACE_ID, text=str(api.exceptions.SparkApiError))
                             i += 1
 
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
-                        botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
+                        botAnswered = api.messages.create(roomId=str(sparkMessage.roomId, markdown=textAnswer)
 
 
     return 'OK'
