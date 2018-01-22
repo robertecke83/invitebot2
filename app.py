@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 BOT_TOKEN = 'YzkxNThlN2ItZDhiYi00N2UwLWJmNTYtMTExN2I3NDhhZmMxOWQ5MzM4YjUtNzM0'
-SPACE_ID = 'Y2lzY29zcGFyazovL3VzL1JPT00vZTJhN2I2ZTAtZmM0My0xMWU3LTljNTEtMjU2ODE2NDAzYzUz'
+SPACE_ID = str(sparkMsgRoomId)
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
@@ -40,7 +40,7 @@ def sparkhook():
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                textAnswer = 'Hello This is a Test ddRoomId= '+ str(sparkMsgRoomId)+ '> dsadsadasdoomId'
+                textAnswer = 'Hello This is a Test ddRoomId= '+ str(sparkMsgRoomId)+ ' dsadsadasdoomId'
                 botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
 
             # If the message comes with a file
