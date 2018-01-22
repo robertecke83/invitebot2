@@ -6,6 +6,7 @@ import csv
 
 app = Flask(__name__)
 
+
 BOT_TOKEN = 'YzkxNThlN2ItZDhiYi00N2UwLWJmNTYtMTExN2I3NDhhZmMxOWQ5MzM4YjUtNzM0'
 SPACE_ID = 'Y2lzY29zcGFyazovL3VzL1JPT00vZTJhN2I2ZTAtZmM0My0xMWU3LTljNTEtMjU2ODE2NDAzYzUz'
 
@@ -32,14 +33,13 @@ def sparkhook():
             botFirstName = botName.split(None, 1)[0] # Get bot's "first name"
 
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
-            sparkMessageID = api.messages.get(jsonAnswer['data']['roomId'])
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                botAnswered = api.messages.create(roomId=, markdown=textAnswer)
+                botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
 
             # If the message comes with a file
             else:
