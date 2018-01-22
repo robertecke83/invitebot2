@@ -39,7 +39,7 @@ def sparkhook():
 
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, <@roomId: 'sparkMessageRid'> you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
                 botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
 
             # If the message comes with a file
