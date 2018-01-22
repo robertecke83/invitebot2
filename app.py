@@ -42,10 +42,6 @@ def sparkhook():
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-             elif   sparkMessage.text.find("hello")
-                    textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
-                    botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
-
             # If the message comes with a file
             else:
                 sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
@@ -69,6 +65,9 @@ def sparkhook():
                                 #botAnswered = api.messages.create(roomId=sparkMsgRoomId, text='Invite Started'))
                             i += 1
 
+                    if sparkMessage.text: = 'Hello'
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
+                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
