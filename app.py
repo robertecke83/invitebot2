@@ -33,8 +33,9 @@ def sparkhook():
             botFirstName = botName.split(None, 1)[0] # Get bot's "first name"
 
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
-            sparkMessageRid = api.messages.get(jsonAnswer['data']['roomId']) # Get Message roomId
+            #sparkMessageRid = api.messages.get(jsonAnswer['data']['roomId']) # Get Message roomId
             sparkMsgText = str(sparkMessage.text) # Get message text
+            sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
             # Say hello if the message doesn't contain a file
