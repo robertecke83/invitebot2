@@ -10,6 +10,7 @@ BOT_TOKEN = 'YzkxNThlN2ItZDhiYi00N2UwLWJmNTYtMTExN2I3NDhhZmMxOWQ5MzM4YjUtNzM0'
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
+
 @app.route('/')
 def hello():
     return 'Hello World!'
@@ -30,13 +31,14 @@ def sparkhook():
             botFirstName = botName.split(None, 1)[0] # Get bot's "first name"
 
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
+            sparkMessageID = api.messages.get(jsonAnswer['data']['roomId'])
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                botAnswered = api.messages.create(roomId=str(sparkMessage.roomId), markdown=textAnswer)
+                botAnswered = api.messages.create(roomId=, markdown=textAnswer)
 
             # If the message comes with a file
             else:
@@ -55,14 +57,14 @@ def sparkhook():
                         listEmails = list(csvFile)
                         for row in listEmails: # Creating one list for each line in the file
                             if i != 0:
-                                participantAdded = api.memberships.create(roomIdstr(sparkMessage.roomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                participantAdded = api.memberships.create(roomId=SPACE_ID, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
                                 #botAnswered = api.messages.create(roomId=SPACE_ID, text=str(api.exceptions.SparkApiError))
                             i += 1
 
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
-                        botAnswered = api.messages.create(roomId=str(sparkMessage.roomId, markdown=textAnswer)
+                        botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
 
 
     return 'OK'
