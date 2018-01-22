@@ -57,6 +57,8 @@ def sparkhook():
                         decodedContent = getResponse.content.decode('utf-8')
                         csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
                         listEmails = list(csvFile)
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
+                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                         for row in listEmails: # Creating one list for each line in the file
                             if i != 0:
                                 participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
