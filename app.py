@@ -60,9 +60,10 @@ def sparkhook():
                         for row in listEmails: # Creating one list for each line in the file
                             if i != 0:
                                 participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                textAnswer = 'Starting invite'
                                 #botAnswered = api.messages.create(roomId=SPACE_ID, text=str(api.exceptions.SparkApiError))
                             i += 1
-                            textAnswer = 'Starting invite'
+
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
