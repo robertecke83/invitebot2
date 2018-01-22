@@ -39,7 +39,7 @@ def sparkhook():
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                textAnswer = 'Hello This is a Test ddRoomId= '+ str(sparkMsgRoomId)+ ' dsadsadasdoomId'
+                #textAnswer = 'Hello This is a Test ddRoomId= '+ str(sparkMsgRoomId)+ ' spaceroomid' #Test to show roomId
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             # If the message comes with a file
@@ -62,7 +62,7 @@ def sparkhook():
                                 participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
                                 #botAnswered = api.messages.create(roomId=SPACE_ID, text=str(api.exceptions.SparkApiError))
                             i += 1
-
+                            textAnswer = 'Starting invite'
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
