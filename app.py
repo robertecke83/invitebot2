@@ -36,8 +36,6 @@ def sparkhook():
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
-
-
             if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
@@ -65,9 +63,10 @@ def sparkhook():
                                 #botAnswered = api.messages.create(roomId=sparkMsgRoomId, text='Invite Started'))
                             i += 1
 
-                    if sparkMessage.text: = 'Hello'
+                    if sparkMessage.text: == 'Hello'
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                         botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+                        
                     # If the attached file is not a CSV
                     else:
                         textAnswer = 'Sorry, I only understand **CSV** files.'
