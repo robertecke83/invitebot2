@@ -33,12 +33,13 @@ def sparkhook():
             botFirstName = botName.split(None, 1)[0] # Get bot's "first name"
 
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
+            sparkMessageRid = api.messages.get(jsonAnswer['data']['roomId']) # Get Message roomId
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
             # Say hello if the message doesn't contain a file
             if not sparkMessage.files:
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, <@roomId: 'sparkMessageRid'> you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
                 botAnswered = api.messages.create(roomId=SPACE_ID, markdown=textAnswer)
 
             # If the message comes with a file
