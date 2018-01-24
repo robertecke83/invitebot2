@@ -42,15 +42,14 @@ def sparkhook():
 
             else:
 
-            if not sparkMessage.files:
-            textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-            botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+                if not sparkMessage.files:
+                    textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
+                    botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                 # If the message comes with a file
                 else:
-                sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
-
-                sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
+                    sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
+                    sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
                 i = 0 # Index to skip title row in the CSV file
 
                 with requests.Session() as s: # Creating a session to allow several HTTP messages with one TCP connection
