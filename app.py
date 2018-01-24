@@ -40,12 +40,14 @@ def sparkhook():
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-            if not sparkMessage.files:
+            else:
+
+                if not sparkMessage.files:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-            # If the message comes with a file
-            else:
+                # If the message comes with a file
+                else:
                 sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
 
                 sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
