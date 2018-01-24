@@ -41,7 +41,7 @@ def sparkhook():
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
 
-            else if not sparkMessage.files:
+            elif not sparkMessage.files:
             textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
             botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
