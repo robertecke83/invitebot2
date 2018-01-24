@@ -40,6 +40,10 @@ def sparkhook():
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
+            if "Help" in sparkMsgText:
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team: /n Help /n Hello'
+                botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+
             else:
 
                 if not sparkMessage.files:
