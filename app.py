@@ -36,7 +36,7 @@ def sparkhook():
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
-            if sparkMessage.text: == 'Hello'
+            if "Hello" in sparkMsgText:
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
