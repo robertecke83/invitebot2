@@ -36,13 +36,13 @@ def sparkhook():
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
 
-            if "hello" in sparkMsgText:
+            if "hello" in sparkMsgText: #Replies to the messsage hello
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-            elif "help" in sparkMsgText:
+            elif "help" in sparkMsgText: #Replies to the Message help
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team: /n Help /n Hello'
-                botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://github.com/robertecke83/invitebot2/blob/master/example.png"])
+                botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/example.png"])
 
             else:
 
