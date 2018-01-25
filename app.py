@@ -80,7 +80,7 @@ def sparkhook():
                                 textAnswer = 'Sorry, I only understand **CSV** files.'
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-                else
+                else:
                     textAnswer = 'Sorry, Im only allowed to invite people for MeetingZone Employes.'
                     botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
