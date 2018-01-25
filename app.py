@@ -47,7 +47,7 @@ def sparkhook():
 
             else:
 
-                if "@meetingzone.com" in sparkMsgPersonEmail # Check if the mesaage comes from a @meetingzone.com
+                if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the mesaage comes from a @meetingzone.com
 
                     if not sparkMessage.files:
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
