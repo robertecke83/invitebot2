@@ -35,47 +35,54 @@ def sparkhook():
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
+            sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the messsage hello
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the Message help
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team: /n Help /n Hello'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/example.png"])
 
             else:
 
-                if not sparkMessage.files:
-                    textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
-                    botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+                if "@meetingzone.com" in sparkMsgPersonEmail # Check if the mesaage comes from a @meetingzone.com
+
+                    if not sparkMessage.files:
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
+                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                 # If the message comes with a file
-                else:
-                    sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
-                    sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
-                i = 0 # Index to skip title row in the CSV file
+                    else:
+                        sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
+                        sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
+                        i = 0 # Index to skip title row in the CSV file
 
-                with requests.Session() as s: # Creating a session to allow several HTTP messages with one TCP connection
-                    getResponse = s.get(sparkMsgFileUrl, headers=sparkHeader) # Get file
+                        with requests.Session() as s: # Creating a session to allow several HTTP messages with one TCP connection
+                        getResponse = s.get(sparkMsgFileUrl, headers=sparkHeader) # Get file
 
                     # If the file extension is CSV
-                    if str(getResponse.headers['Content-Type']) == 'text/csv':
+                        if str(getResponse.headers['Content-Type']) == 'text/csv':
                         decodedContent = getResponse.content.decode('utf-8')
                         csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
                         listEmails = list(csvFile)
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
                         botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
-                        for row in listEmails: # Creating one list for each line in the file
-                            if i != 0:
+                            for row in listEmails: # Creating one list for each line in the file
+                                if i != 0:
                                 participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
                                 #botAnswered = api.messages.create(roomId=sparkMsgRoomId, text='Invite Started'))
-                            i += 1
+                                i += 1
 
                     # If the attached file is not a CSV
-                    else:
-                        textAnswer = 'Sorry, I only understand **CSV** files.'
-                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+                        else:
+                            textAnswer = 'Sorry, I only understand **CSV** files.'
+                            botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
+
+                else
+                    textAnswer = 'Sorry, Im only allowed to invite people for MeetingZone Employes.'
+                    botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
 
     return 'OK'
