@@ -34,7 +34,7 @@ def sparkhook():
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
-            sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
+            #sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the Message hello
