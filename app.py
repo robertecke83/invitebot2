@@ -37,7 +37,7 @@ def sparkhook():
             # sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
-            if "hello Hello" in sparkMsgText: #Replies to the messsage hello
+            if "hello Hello" in sparkMsgText: #Replies to the Message hello
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
@@ -47,10 +47,10 @@ def sparkhook():
 
             else:
 
-                if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the mesaage comes from a @meetingzone.com domain
+                if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
 
-                    if not sparkMessage.files:
-                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
+                    if not sparkMessage.files: #IF there is no CSV file attached use help
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the *.CSV please @mention me with help to find out how to use me'
                         botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                         # If the message comes with a file
