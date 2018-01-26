@@ -14,7 +14,7 @@ api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
 @app.route('/')
 def hello():
-    return 'Hello World!'
+    return 'You made it, I´m still running!'
 
 # Receive POST from Spark Space
 @app.route('/sparkhook', methods=['POST'])
@@ -37,17 +37,17 @@ def sparkhook():
             # sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
-            if "hello" in sparkMsgText: #Replies to the messsage hello
+            if "hello" or "Hello" in sparkMsgText: #Replies to the messsage hello
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-            elif "help" in sparkMsgText: #Replies to the Message help
+            elif "help" or "Help" in sparkMsgText: #Replies to the Message help
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/example.png"])
 
             else:
 
-                if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the mesaage comes from a @meetingzone.com
+                if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the mesaage comes from a @meetingzone.com domain
 
                     if not sparkMessage.files:
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>,you can send me a CSV file including a list of e-mail addresses and I will add them to this space.'
@@ -75,8 +75,8 @@ def sparkhook():
                                         #botAnswered = api.messages.create(roomId=sparkMsgRoomId, text='Invite Started'))
                                         i += 1
 
-                                        # If the attached file is not a CSV
-                            else:
+                                      
+                            else:   # If the attached file is not a CSV
                                 textAnswer = 'Sorry, I only understand **CSV** files.'
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
