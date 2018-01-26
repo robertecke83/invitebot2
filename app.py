@@ -34,7 +34,7 @@ def sparkhook():
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
-            # sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
+            sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the Message hello
@@ -56,6 +56,7 @@ def sparkhook():
                         # If the message comes with a file
                     else:
                         sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
+                        
                         sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
                         i = 0 # Index to skip title row in the CSV file
 
@@ -72,8 +73,7 @@ def sparkhook():
                                 for row in listEmails: # Creating one list for each line in the file
                                     if i != 0:
                                         participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
-                                        #botAnswered = api.messages.create(roomId=sparkMsgRoomId, text='Invite Started'))
-                                        i += 1
+                                    i += 1
 
                                       
                             else:   # If the attached file is not a CSV
