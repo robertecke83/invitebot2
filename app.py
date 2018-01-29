@@ -42,7 +42,7 @@ def sparkhook():
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the Message help
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team: - In order to invite people prepare a *.csv - For a team Space make me to a Moderator'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/example.png"])
 
             else:
