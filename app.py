@@ -1,5 +1,5 @@
 from flask import Flask, request
-from ciscosparkapi import CiscoSparkAPI, SparkApiError
+from ciscosparkapi import CiscoSparkAPI
 import json
 import requests
 import csv
@@ -72,7 +72,7 @@ def sparkhook():
                                 for row in listEmails: # Creating one list for each line in the file
                                     if i != 0:
                                         participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
-                                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, text=str(api.exceptions.SparkApiError))
+                                        
                                     i += 1
                                     
                             else:   # If the attached file is not a CSV
