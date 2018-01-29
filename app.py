@@ -34,7 +34,6 @@ def sparkhook():
             sparkMessage = api.messages.get(jsonAnswer['data']['id']) # Get message object text from message ID
             sparkMsgText = str(sparkMessage.text) # Get message text
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
-            #sparkMsgText = sparkMsgText.split(botFirstName,1)[1] # Remove bot's first name from message
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the Message hello
@@ -50,7 +49,7 @@ def sparkhook():
                  if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
 
                     if not sparkMessage.files: #IF there is no CSV file attached use help
-                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the CSV file please @mention me with **help** to find out how to use me'
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the **CSV** file please @mention me with **help** to find out how to use me'
                         botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                         # If the message comes with a file
@@ -73,9 +72,9 @@ def sparkhook():
                                 for row in listEmails: # Creating one list for each line in the file
                                     if i != 0:
                                         participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, text=str(api.exceptions.SparkApiError))
                                     i += 1
-
-                                      
+                                    
                             else:   # If the attached file is not a CSV
                                 textAnswer = 'Sorry, I only understand **CSV** files, please @mention me with **help** to find out how to use me'
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
