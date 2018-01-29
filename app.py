@@ -1,5 +1,5 @@
 from flask import Flask, request
-from ciscosparkapi import CiscoSparkAPI
+from ciscosparkapi import CiscoSparkAPI, SparkApiError
 import json
 import requests
 import csv
