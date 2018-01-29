@@ -42,7 +42,7 @@ def sparkhook():
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the Message help
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will Help you to Invite People to a Spark Space or Team: \n - In order to invite people into prepare a *.csv and send to me via @mention into the space you want the people added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv make sure people in the *.csv are **not** already in the space\team \n - I will **only** work for MeetingZone Employees \n - If you want to know more about me @mention me with **about**'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Spark Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv make sure people in the *.csv are **not** already in the space\team \n - I will **only** work for MeetingZone Employees \n - If you want to know more about me @mention me with **about**'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/invite.csv"])
 
             else:
@@ -50,7 +50,7 @@ def sparkhook():
                  if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
 
                     if not sparkMessage.files: #IF there is no CSV file attached use help
-                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the *.CSV please @mention me with **help** to find out how to use me'
+                        textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the CSV file please @mention me with **help** to find out how to use me'
                         botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                         # If the message comes with a file
