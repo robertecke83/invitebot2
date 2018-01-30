@@ -36,22 +36,21 @@ def sparkhook():
             sparkMsgRoomId = str(sparkMessage.roomId) # Get message roomId
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
-            if "hello" in sparkMsgText: #Replies to the Message hello
+            if "hello" in sparkMsgText: #Replies to the message hello
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
-            elif "help" in sparkMsgText: #Replies to the Message help
+            elif "help" in sparkMsgText: #Replies to the message help
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Spark Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv make sure people in the *.csv are **not** already in the space\team \n - I will **only** work for MeetingZone Employees \n - If you want to know more about me @mention me with **about**'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/robertecke83/invitebot2/master/invite.csv"])
             
-            elif "about"
-                
+            elif "about" in sparkMsgText: #Replies to the message about
                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, \n - Here you can find the code: https://github.com/robertecke83/invitebot2 \n - robert.ecke@meetingzone.com'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
             
             else:
 
-                 if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
+                 if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from @meetingzone.com user
 
                     if not sparkMessage.files: #IF there is no CSV file attached use help
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the **CSV** file please @mention me with **help** to find out how to use me'
