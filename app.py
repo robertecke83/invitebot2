@@ -64,7 +64,7 @@ def sparkhook():
                         i = 0 # Index to skip first row in the CSV file
 
                         with requests.Session() as s: # Creating a session to allow several HTTP messages with one TCP connection
-                            getResponse = s.get(sparkMsgFileUrl, headers=sparkHeader, timeout=5.0) # Get file
+                            getResponse = s.get(sparkMsgFileUrl, headers=sparkHeader, timeout=30.0) # Get file
 
                             # If the file extension is CSV
                             if str(getResponse.headers['Content-Type']) == 'text/csv':
